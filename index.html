@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LMS Kelas 6 - Selasa</title>
+<style>
+:root{--red:#b91c1c;--blue:#1d4ed8;--purple:#7e22ce;--green:#15803d;--amber:#d97706;--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#64748b;--line:#e5e7eb}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 10% 5%,#fee2e2 0,transparent 22%),radial-gradient(circle at 90% 5%,#dbeafe 0,transparent 24%),var(--bg);color:var(--text)}
+header{background:linear-gradient(120deg,#991b1b,#dc2626 44%,#2563eb 56%,#0f3f86);color:#fff;padding:30px 18px}
+.hero{max-width:1120px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.hero h1{margin:0 0 8px;font-size:34px}.hero p{margin:0;line-height:1.5;opacity:.95}
+.badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);padding:11px 15px;border-radius:15px;font-weight:800}
+main{max-width:1120px;margin:18px auto;padding:0 14px 40px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 10px 28px rgba(15,39,66,.08);margin-bottom:16px}
+.notice{background:#fff7ed;border-left:5px solid var(--amber);line-height:1.65}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.flex1{flex:1;min-width:220px}
+input[type=text],textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:12px;font:inherit}textarea{min-height:110px;resize:vertical}
+.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:800;cursor:pointer}.btn-blue{background:var(--blue);color:#fff}.btn-purple{background:var(--purple);color:#fff}.btn-green{background:var(--green);color:#fff}.btn-light{background:#e8eef6;color:#172033}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.subject{border-top:6px solid;min-height:205px}.math{border-color:var(--blue)}.indo{border-color:var(--purple)}.icon{font-size:38px}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}.pill.blue{background:#dbeafe;color:#1d4ed8}.pill.purple{background:#f3e8ff;color:#7e22ce}
+.lesson{background:#f8fafc;border:1px solid var(--line);border-radius:15px;padding:15px;margin:12px 0;line-height:1.7}.hidden{display:none!important}
+.readcheck{background:#ecfdf5;border:1px solid #bbf7d0;padding:13px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.quiz-q{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;margin:11px 0}.quiz-q label{display:block;padding:7px 8px;border-radius:9px}
+.essay-q{background:#fffaf0;border:1px solid #fde68a;border-radius:15px;padding:15px;margin:11px 0}.status{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
+.locked{background:#fee2e2;color:#991b1b}.opened{background:#dcfce7;color:#166534}.progress{height:14px;background:#e5e7eb;border-radius:999px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#ef4444,#f59e0b,#2563eb);transition:.3s}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.stat{background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:13px}.value{font-size:21px;font-weight:900}.small{font-size:13px;color:var(--muted)}
+.result{margin-top:12px;padding:15px;border-radius:15px;background:linear-gradient(135deg,#eff6ff,#fff7ed);border:1px solid #dbeafe}.big{font-size:40px;font-weight:950}.wait{color:#d97706}
+.save-status{margin-top:10px;padding:11px 12px;border-radius:11px;font-weight:700}.save-status.wait{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}.save-status.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}.save-status.err{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239}
+footer{text-align:center;color:#64748b;padding:25px 15px}@media(max-width:850px){.grid2,.stats{grid-template-columns:1fr}.hero h1{font-size:26px}}
+</style>
+<!-- FINAL: JSONP SAVE + VERIFY -->
+</head>
+<body>
+<header><div class="hero"><div><h1>📚 LMS Kelas 6 — Pembelajaran Selasa</h1><p>UPTD SDN 40 Negeri Katon<br>Bahasa Indonesia & Matematika</p></div><div class="badge">Riyadh Firdaus, M.Pd., Gr.</div></div></header>
+<main>
+<div class="card notice"><b>Petunjuk:</b> isi nama lengkap, pilih mata pelajaran, baca materi terlebih dahulu, lalu centang pernyataan sudah membaca. Setelah itu akan terbuka <b>15 soal pilihan ganda dan 5 soal esai</b>. Pilihan ganda dinilai otomatis, sedangkan jawaban esai disimpan untuk diperiksa guru.</div>
+
+<div class="card"><h2>👤 Identitas Siswa</h2><div class="row"><div class="flex1"><input id="studentName" type="text" placeholder="Nama lengkap siswa"></div><div style="min-width:170px"><select id="studentClass"><option value="6">Kelas 6</option></select></div><button class="btn btn-blue" onclick="saveIdentity()">Simpan Identitas</button></div><p id="welcome" class="small">Silakan simpan identitas terlebih dahulu.</p></div>
+
+<div class="card"><h2>📊 Progres Hari Ini</h2><div class="progress"><div id="progressBar" class="bar"></div></div><p id="progressText" class="small">0% mata pelajaran selesai</p><div id="stats" class="stats"></div></div>
+
+<div class="grid2">
+  <div class="card subject indo"><div class="icon">📖</div><span class="pill purple">15 Pilgan + 5 Esai</span><h2>Bahasa Indonesia</h2><p>Ide pokok, informasi penting, simpulan, makna kata, dan pemahaman bacaan.</p><button class="btn btn-purple" onclick="openSubject('indonesia')">Mulai Belajar</button></div>
+  <div class="card subject math"><div class="icon">➗</div><span class="pill blue">15 Pilgan + 5 Esai</span><h2>Matematika</h2><p>Pecahan, desimal, persen, operasi hitung, dan pemecahan masalah.</p><button class="btn btn-blue" onclick="openSubject('matematika')">Mulai Belajar</button></div>
+</div>
+
+<section id="sec-indonesia" class="card hidden">
+<div class="row" style="justify-content:space-between"><div><h2>📖 Bahasa Indonesia</h2><span id="status-indonesia" class="status locked">Soal terkunci</span></div><button class="btn btn-light" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Atas</button></div>
+<div class="lesson"><h3>🎯 Tujuan Pembelajaran</h3>Siswa mampu menemukan ide pokok, informasi penting, makna kata, dan simpulan dari teks informatif.</div>
+<div class="lesson"><h3>📚 Bacaan: Belajar dari Rumah dengan Disiplin</h3>
+<p>Belajar dari rumah membutuhkan kedisiplinan. Siswa perlu menyiapkan tempat belajar yang nyaman, alat tulis, dan perangkat yang diperlukan sebelum pembelajaran dimulai. Dengan persiapan yang baik, kegiatan belajar dapat berlangsung lebih teratur.</p>
+<p>Selain menyiapkan perlengkapan, siswa juga perlu mengatur waktu. Waktu belajar sebaiknya digunakan dengan sungguh-sungguh. Ketika guru memberikan materi atau tugas, siswa perlu membaca petunjuk dengan teliti agar tidak terjadi kesalahan.</p>
+<p>Orang tua dapat membantu dengan memberikan suasana belajar yang tenang. Namun, siswa tetap harus berusaha mengerjakan tugas secara mandiri. Jika mengalami kesulitan, siswa dapat bertanya kepada guru dengan bahasa yang sopan.</p>
+<p>Kedisiplinan dalam belajar akan membentuk kebiasaan baik. Kebiasaan tersebut bermanfaat tidak hanya untuk menyelesaikan tugas sekolah, tetapi juga untuk melatih tanggung jawab dalam kehidupan sehari-hari.</p></div>
+<div class="lesson"><h3>🔎 Materi Inti</h3><ul><li><b>Ide pokok</b> adalah gagasan utama dalam paragraf.</li><li><b>Informasi penting</b> adalah fakta utama yang mendukung ide pokok.</li><li><b>Simpulan</b> adalah ringkasan isi teks secara keseluruhan.</li><li><b>Makna kata</b> ditentukan berdasarkan konteks kalimat.</li></ul></div>
+<div class="readcheck"><input id="read-indonesia" type="checkbox" onchange="unlockQuiz('indonesia')"><label for="read-indonesia"><b>Saya sudah membaca dan memahami materi Bahasa Indonesia.</b></label></div>
+<div id="quiz-indonesia" class="hidden"><h3>📝 A. Pilihan Ganda — 15 Soal</h3><form id="form-indonesia-mcq"></form><h3>✍️ B. Esai — 5 Soal</h3><form id="form-indonesia-essay"></form><button class="btn btn-green" onclick="submitSubject(event,'indonesia')">Kirim Jawaban</button><div id="result-indonesia"></div></div>
+</section>
+
+<section id="sec-matematika" class="card hidden">
+<div class="row" style="justify-content:space-between"><div><h2>➗ Matematika</h2><span id="status-matematika" class="status locked">Soal terkunci</span></div><button class="btn btn-light" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Atas</button></div>
+<div class="lesson"><h3>🎯 Tujuan Pembelajaran</h3>Siswa mampu menggunakan pecahan, desimal, dan persen untuk menyelesaikan soal hitung dan masalah sehari-hari.</div>
+<div class="lesson"><h3>📘 Materi Inti</h3><ul><li>Pecahan ke desimal: pembilang ÷ penyebut.</li><li>Desimal ke persen: dikali 100%.</li><li>Persen ke desimal: dibagi 100.</li><li>Persen dari jumlah: persen × jumlah.</li><li>Pecahan senilai diperoleh dengan mengalikan atau membagi pembilang dan penyebut dengan bilangan yang sama.</li></ul><p><b>Contoh:</b> 3/4 = 0,75 = 75% dan 25% dari 80 = 20.</p></div>
+<div class="readcheck"><input id="read-matematika" type="checkbox" onchange="unlockQuiz('matematika')"><label for="read-matematika"><b>Saya sudah membaca dan memahami materi Matematika.</b></label></div>
+<div id="quiz-matematika" class="hidden"><h3>📝 A. Pilihan Ganda — 15 Soal</h3><form id="form-matematika-mcq"></form><h3>✍️ B. Esai — 5 Soal</h3><form id="form-matematika-essay"></form><button class="btn btn-green" onclick="submitSubject(event,'matematika')">Kirim Jawaban</button><div id="result-matematika"></div></div>
+</section>
+
+<div class="card"><h2>🏆 Ringkasan Hasil</h2><div id="summary" class="lesson">Belum ada hasil.</div></div>
+</main>
+<footer>LMS Kelas 6 • UPTD SDN 40 Negeri Katon<br>Dibuat dan dikembangkan oleh Riyadh Firdaus, M.Pd., Gr.</footer>
+
+<script>
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwjv9Byzhcnazf6kL3Y1QNHUIchHyxmMvo0BViEuzhNYkGKurTTgUxe8FfPPJ_AxAx4/exec";
+const DATA = {"indonesia": {"label": "Bahasa Indonesia", "mcq": [["Ide pokok paragraf pertama adalah...", ["Belajar dari rumah membutuhkan kedisiplinan", "Siswa harus membeli alat tulis baru", "Orang tua harus mengerjakan tugas", "Belajar hanya dilakukan pagi hari"], 0], ["Persiapan sebelum belajar bertujuan agar...", ["Belajar lebih teratur", "Tugas lebih banyak", "Waktu cepat habis", "Siswa tidak perlu membaca"], 0], ["Siswa perlu membaca petunjuk dengan teliti agar...", ["Tidak terjadi kesalahan", "Cepat selesai tanpa memahami", "Tidak perlu bertanya", "Bisa menyalin jawaban"], 0], ["Peran orang tua dalam bacaan adalah...", ["Memberikan suasana belajar yang tenang", "Mengerjakan seluruh tugas", "Memberi jawaban soal", "Menggantikan guru"], 0], ["Jika mengalami kesulitan, siswa sebaiknya...", ["Bertanya kepada guru dengan sopan", "Berhenti belajar", "Menyalin jawaban teman", "Mengabaikan tugas"], 0], ["Makna kata 'mandiri' dalam bacaan adalah...", ["Mengerjakan sendiri dengan tanggung jawab", "Selalu dibantu orang lain", "Tidak mau belajar", "Bekerja tanpa aturan"], 0], ["Paragraf kedua terutama membahas...", ["Pengaturan waktu dan ketelitian membaca petunjuk", "Peran orang tua", "Tempat belajar", "Manfaat kedisiplinan"], 0], ["Kedisiplinan akan membentuk...", ["Kebiasaan baik", "Kebiasaan buruk", "Rasa malas", "Sikap tergesa-gesa"], 0], ["Salah satu manfaat kebiasaan disiplin adalah...", ["Melatih tanggung jawab", "Mengurangi waktu belajar", "Membuat tugas semakin sulit", "Menghindari semua aturan"], 0], ["Informasi penting paragraf ketiga adalah...", ["Siswa tetap harus berusaha mandiri", "Orang tua wajib mengerjakan tugas", "Guru tidak boleh ditanya", "Belajar harus selalu ditemani"], 0], ["Simpulan bacaan yang tepat adalah...", ["Belajar dari rumah memerlukan disiplin dan tanggung jawab", "Belajar dari rumah tidak memerlukan aturan", "Orang tua harus mengerjakan tugas siswa", "Siswa tidak perlu mengatur waktu"], 0], ["Kata 'teratur' memiliki makna...", ["Tertib dan tersusun", "Berantakan", "Terburu-buru", "Tidak tetap"], 0], ["Kalimat yang menunjukkan tanggung jawab adalah...", ["Mengerjakan tugas secara mandiri", "Menunggu teman mengerjakan", "Mengabaikan petunjuk", "Tidak membaca materi"], 0], ["Teks tersebut termasuk teks...", ["Informatif", "Puisi", "Dialog", "Iklan"], 0], ["Pesan utama teks adalah...", ["Disiplin membuat kegiatan belajar lebih baik", "Belajar harus selalu dibantu orang tua", "Tugas boleh ditunda", "Membaca petunjuk tidak penting"], 0]], "essay": ["Tuliskan ide pokok paragraf pertama dengan bahasamu sendiri.", "Sebutkan tiga hal yang perlu disiapkan sebelum belajar dari rumah.", "Mengapa siswa perlu membaca petunjuk tugas dengan teliti?", "Jelaskan peran orang tua dalam membantu kegiatan belajar dari rumah.", "Tuliskan simpulan bacaan dalam 2–3 kalimat."]}, "matematika": {"label": "Matematika", "mcq": [["6/8 dalam bentuk desimal adalah...", ["0,60", "0,75", "0,80", "0,85"], 1], ["0,5 dalam bentuk persen adalah...", ["5%", "50%", "500%", "0,5%"], 1], ["75% sama dengan pecahan...", ["1/4", "1/2", "3/4", "4/5"], 2], ["25% dari 80 adalah...", ["10", "20", "25", "40"], 1], ["0,25 sama dengan...", ["1/2", "1/3", "1/4", "3/4"], 2], ["110% dalam bentuk desimal adalah...", ["0,11", "1,1", "11", "110"], 1], ["3/5 dalam bentuk persen adalah...", ["30%", "50%", "60%", "80%"], 2], ["20% dari 150 adalah...", ["20", "25", "30", "35"], 2], ["1/2 + 1/4 = ...", ["1/4", "2/4", "3/4", "4/4"], 2], ["0,4 + 0,35 = ...", ["0,65", "0,70", "0,75", "0,80"], 2], ["2,5 - 1,25 = ...", ["1,15", "1,20", "1,25", "1,35"], 2], ["Perbandingan 12 : 18 disederhanakan menjadi...", ["2 : 3", "3 : 4", "4 : 5", "6 : 8"], 0], ["1,25 dalam bentuk persen adalah...", ["12,5%", "25%", "100%", "125%"], 3], ["30% dari 60 adalah...", ["12", "15", "18", "20"], 2], ["Pecahan senilai dengan 2/3 adalah...", ["4/6", "4/5", "3/4", "6/10"], 0]], "essay": ["Ubah 7/10 menjadi bentuk desimal dan persen.", "Hitung 35% dari 200. Tuliskan langkah perhitungannya.", "Ibu membeli 2,5 kg gula dan menggunakan 0,75 kg. Berapa kilogram gula yang tersisa?", "Sederhanakan perbandingan 24 : 36 dan jelaskan caranya.", "Sebuah kelas berisi 40 siswa. Sebanyak 60% hadir. Berapa siswa yang hadir? Tuliskan cara menghitungnya."]}};
+let openedAt={};
+
+function renderForms(subject){
+  const d=DATA[subject];
+  const f=document.getElementById('form-'+subject+'-mcq');
+  f.innerHTML='';
+  d.mcq.forEach((q,i)=>{
+    const div=document.createElement('div');
+    div.className='quiz-q';
+    div.innerHTML='<b>'+(i+1)+'. '+q[0]+'</b>'+q[1].map((o,j)=>'<label><input type="radio" name="'+subject+'_m'+i+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('');
+    f.appendChild(div);
+  });
+  const e=document.getElementById('form-'+subject+'-essay');
+  e.innerHTML='';
+  d.essay.forEach((q,i)=>{
+    const div=document.createElement('div');
+    div.className='essay-q';
+    div.innerHTML='<b>'+(i+1)+'. '+q+'</b><textarea id="'+subject+'_e'+i+'" placeholder="Tuliskan jawabanmu di sini..." maxlength="400"></textarea>';
+    e.appendChild(div);
+  });
+}
+Object.keys(DATA).forEach(renderForms);
+
+function saveIdentity(){
+  const n=document.getElementById('studentName').value.trim();
+  if(!n){alert('Isi nama lengkap terlebih dahulu.');return}
+  localStorage.setItem('selasa_name',n);
+  render();
+}
+function openSubject(s){
+  if(!localStorage.getItem('selasa_name')){alert('Simpan identitas terlebih dahulu.');return}
+  document.getElementById('sec-'+s).classList.remove('hidden');
+  openedAt[s]=Date.now();
+  document.getElementById('sec-'+s).scrollIntoView({behavior:'smooth'});
+}
+function unlockQuiz(s){
+  const c=document.getElementById('read-'+s).checked;
+  const q=document.getElementById('quiz-'+s);
+  const st=document.getElementById('status-'+s);
+  if(c){q.classList.remove('hidden');st.className='status opened';st.textContent='Soal sudah terbuka'}
+  else{q.classList.add('hidden');st.className='status locked';st.textContent='Soal terkunci'}
+}
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+function jsonp(params,timeout=12000){
+  return new Promise((resolve,reject)=>{
+    const cb='cb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const script=document.createElement('script');
+    const timer=setTimeout(()=>{cleanup();reject(new Error('Server tidak merespons'));},timeout);
+    function cleanup(){
+      clearTimeout(timer);
+      try{delete window[cb]}catch(e){}
+      if(script.parentNode)script.remove();
+    }
+    window[cb]=(data)=>{cleanup();resolve(data)};
+    const qs=new URLSearchParams({...params,callback:cb,_:Date.now()});
+    script.src=BACKEND_URL+'?'+qs.toString();
+    script.onerror=()=>{cleanup();reject(new Error('Gagal menghubungi server'))};
+    document.head.appendChild(script);
+  });
+}
+
+async function saveViaJsonp(payload){
+  const params={action:'save',...payload};
+  const res=await jsonp(params,20000);
+
+  if(!res || res.status!=='success'){
+    throw new Error((res && res.message) ? res.message : 'Server gagal menyimpan.');
+  }
+
+  return res;
+}
+
+async function verifySave(submissionId){
+  for(let i=0;i<10;i++){
+    try{
+      const res=await jsonp({action:'verify',submission_id:submissionId},10000);
+      if(res && res.status==='success' && res.found===true){
+        return res;
+      }
+    }catch(e){}
+    await sleep(1000);
+  }
+  return null;
+}
+
+async function submitSubject(ev,s){
+  ev.preventDefault();
+  const name=localStorage.getItem('selasa_name');
+  if(!name){alert('Identitas belum disimpan.');return}
+
+  let correct=0,missing=[];
+  const answers=[];
+
+  DATA[s].mcq.forEach((q,i)=>{
+    const p=document.querySelector('input[name="'+s+'_m'+i+'"]:checked');
+    if(!p){
+      missing.push(i+1);
+      answers.push('');
+    }else{
+      const v=Number(p.value);
+      answers.push(String.fromCharCode(65+v));
+      if(v===q[2]) correct++;
+    }
+  });
+
+  if(missing.length){
+    alert('Pilihan ganda nomor '+missing.join(', ')+' belum dijawab.');
+    return;
+  }
+
+  const essay=[];
+  for(let i=0;i<5;i++){
+    const v=document.getElementById(s+'_e'+i).value.trim();
+    if(!v){
+      alert('Esai nomor '+(i+1)+' belum dijawab.');
+      return;
+    }
+    essay.push(v);
+  }
+
+  const mcqScore=correct*4;
+  const submissionId=Date.now()+'-'+Math.random().toString(36).slice(2,10);
+
+  const payload={
+    submission_id:submissionId,
+    nama:name,
+    kelas:'6',
+    mapel:DATA[s].label+' - Selasa',
+    nilai:mcqScore,
+    benar:correct,
+    total:15,
+    status:'MENUNGGU NILAI ESAI',
+    jawaban:'PG: '+answers.join(',')+' | ESAI: '+essay.map((x,i)=>(i+1)+') '+x).join(' || '),
+    tanggal:new Date().toLocaleDateString('id-ID'),
+    waktu:new Date().toLocaleTimeString('id-ID'),
+    durasi_detik:Math.max(1,Math.round((Date.now()-(openedAt[s]||Date.now()))/1000))
+  };
+
+  const result=document.getElementById('result-'+s);
+  result.innerHTML=
+    '<div class="result">'+
+      '<div class="small">Nilai sementara pilihan ganda</div>'+
+      '<div class="big wait">'+mcqScore+'/60</div>'+
+      '<b>'+correct+' benar dari 15 soal</b><br>'+
+      '<span class="small">Nilai akhir menunggu pemeriksaan 5 soal esai oleh guru.</span>'+
+    '</div>'+
+    '<div class="save-status wait">⏳ Sedang menyimpan dan memverifikasi jawaban...</div>';
+
+  try{
+    const saved=await saveViaJsonp(payload);
+
+    const verified=await verifySave(submissionId);
+
+    if(!verified){
+      throw new Error('Server menerima data tetapi baris belum ditemukan saat verifikasi.');
+    }
+
+    result.innerHTML=
+      '<div class="result">'+
+        '<div class="small">Nilai sementara pilihan ganda</div>'+
+        '<div class="big wait">'+mcqScore+'/60</div>'+
+        '<b>'+correct+' benar dari 15 soal</b><br>'+
+        '<span class="small">Nilai akhir menunggu pemeriksaan 5 soal esai oleh guru.</span>'+
+      '</div>'+
+      '<div class="save-status ok">✅ Jawaban sudah benar-benar masuk ke Spreadsheet pada baris '+verified.row+'.</div>';
+
+    localStorage.setItem('selasa_score_'+s,String(mcqScore));
+    localStorage.setItem('selasa_done_'+s,'1');
+    render();
+    alert('Jawaban berhasil tersimpan ke Spreadsheet.');
+
+  }catch(err){
+    result.innerHTML=
+      '<div class="result">'+
+        '<div class="small">Nilai sementara pilihan ganda</div>'+
+        '<div class="big wait">'+mcqScore+'/60</div>'+
+        '<b>'+correct+' benar dari 15 soal</b><br>'+
+        '<span class="small">Nilai akhir menunggu pemeriksaan 5 soal esai oleh guru.</span>'+
+      '</div>'+
+      '<div class="save-status err">⚠️ Jawaban belum terverifikasi di Spreadsheet. Silakan tekan Kirim Jawaban lagi.</div>';
+
+    alert('Jawaban belum masuk ke Spreadsheet. Silakan coba lagi.');
+  }
+}
+
+function render(){
+  const n=localStorage.getItem('selasa_name')||'';
+  document.getElementById('studentName').value=n;
+  document.getElementById('welcome').textContent=n?'Selamat belajar, '+n+'!':'Silakan simpan identitas terlebih dahulu.';
+  let done=0,stats='';
+  Object.keys(DATA).forEach(s=>{
+    const d=localStorage.getItem('selasa_done_'+s)==='1';if(d)done++;
+    const sc=localStorage.getItem('selasa_score_'+s);
+    stats+='<div class="stat"><div class="small">'+DATA[s].label+'</div><div class="value">'+(sc!==null?sc+'/60':'—')+'</div><div class="small">'+(d?'Sudah dikirim':'Belum selesai')+'</div></div>';
+  });
+  document.getElementById('stats').innerHTML=stats;
+  const pct=Math.round(done/2*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressText').textContent=pct+'% mata pelajaran selesai';
+  document.getElementById('summary').innerHTML='<b>Nama:</b> '+(n||'-')+'<br><b>Bahasa Indonesia:</b> '+(localStorage.getItem('selasa_score_indonesia')??'-')+'/60<br><b>Matematika:</b> '+(localStorage.getItem('selasa_score_matematika')??'-')+'/60<br><span class="small">Nilai akhir menunggu penilaian esai.</span>';
+}
+render();
+</script>
+</body>
+</html>
